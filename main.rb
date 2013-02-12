@@ -17,7 +17,6 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     end
 
     def poll_usb
-        puts "poll_usb"
         init_loop
         begin
             case check_button
@@ -28,6 +27,7 @@ class RIQProductionPush < DreamCheeky::BigRedButton
             when CLOSED
                 close! unless already_closed?
             end
+            sleep 0.1
         end while(@running)
     end
 
