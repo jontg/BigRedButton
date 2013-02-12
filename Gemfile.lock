@@ -1,0 +1,27 @@
+GIT
+  remote: git://github.com/gusaaaaa/dream_cheeky.git
+  revision: e4867f6233122b64397693f1b37245e077cdcc0b
+  branch: linux_support
+  specs:
+    dream_cheeky (0.2.0)
+      pkg-config
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    hipchat (0.7.0)
+      httparty
+      httparty
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
+    multi_json (1.5.1)
+    multi_xml (0.5.3)
+    pkg-config (1.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dream_cheeky!
+  hipchat (~> 0.7.0)
