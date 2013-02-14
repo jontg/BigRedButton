@@ -2,13 +2,16 @@ require 'rubygems'
 require 'bundler/setup'
 require 'hipchat'
 require 'dream_cheeky'
+require 'sonos'
 
 class RIQProductionPush < DreamCheeky::BigRedButton
-    attr_accessor :running
+    attr_accessor :running, :sonos_group
 
     def initialize
         puts "initialize"
         @running = true
+        system = Sonos::System.new(Sonos::Discovery(1,"10.47.0.147").topology)
+        @sonos_group = system.groups.first
     end
 
     def stop
@@ -34,10 +37,12 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     def run_block
         open do
             puts "Open"
+            @sonos_group.pause
         end
 
         close do
             puts "Close"
+            @sonos_group.play
         end
 
         push do

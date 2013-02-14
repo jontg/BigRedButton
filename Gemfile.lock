@@ -7,7 +7,7 @@ GIT
       pkg-config
 
 GIT
-  remote: git://github.com/soffes/sonos.git
+  remote: git://github.com/jontg/sonos.git
   revision: 5361fb3fcddf248af97cdd95040f4ff0250003aa
   specs:
     sonos (0.3.0)
