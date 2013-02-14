@@ -8,9 +8,8 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     attr_accessor :running, :sonos_group
 
     def initialize
-        puts "initialize"
         @running = true
-        system = Sonos::System.new(Sonos::Discovery(1,"10.47.0.147").topology)
+        system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
         @sonos_group = system.groups.first
     end
 

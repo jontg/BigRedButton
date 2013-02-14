@@ -8,7 +8,8 @@ GIT
 
 GIT
   remote: git://github.com/jontg/sonos.git
-  revision: 5361fb3fcddf248af97cdd95040f4ff0250003aa
+  revision: 4bb7dc84c1bcd523e341335f04e2e04191eb6ccb
+  branch: master
   specs:
     sonos (0.3.0)
       nokogiri
@@ -57,4 +58,4 @@ PLATFORMS
 DEPENDENCIES
   dream_cheeky!
   hipchat (~> 0.7.0)
-  sonos (~> 0.3.0)!
+  sonos!
