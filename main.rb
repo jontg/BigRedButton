@@ -3,6 +3,7 @@ require 'bundler/setup'
 require 'hipchat'
 require 'dream_cheeky'
 require 'sonos'
+require 'yubikey'
 
 class RIQProductionPush < DreamCheeky::BigRedButton
     attr_accessor :running, :sonos_group
@@ -24,6 +25,15 @@ class RIQProductionPush < DreamCheeky::BigRedButton
             case check_button
             when OPEN
                 open! unless already_open?
+                begin
+                  otp = gets.chomp
+                  token = Yubikey::OTP::Verify.new(otp)
+                  if token.valid?
+                    puts "Test successful"
+                  end
+                rescue Yubikey::OTP::InvalidOTPError
+                  puts "invalid OTP"
+                end
             when DEPRESSED
                 push! unless already_pushed?
             when CLOSED
@@ -63,4 +73,3 @@ Signal.trap 'INT' do
 end
 
 brb.run(&brb.run_block)
-

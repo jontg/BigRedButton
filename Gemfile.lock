@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/blueboxgroup/yubikey/
+  revision: 633a8e75ef6bc00aecc2fbcc248511df9535dfdf
+  branch: openssl
+  specs:
+    yubikey (1.2.1)
+      yubikey
+
+GIT
   remote: git://github.com/gusaaaaa/dream_cheeky.git
   revision: e4867f6233122b64397693f1b37245e077cdcc0b
   branch: linux_support
@@ -22,7 +30,7 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
-    builder (3.1.4)
+    builder (3.2.0)
     gyoku (1.0.0)
       builder (>= 2.1.2)
     hipchat (0.7.0)
@@ -33,10 +41,10 @@ GEM
       multi_xml (>= 0.5.2)
     httpi (2.0.2)
       rack
-    multi_json (1.5.1)
+    multi_json (1.6.1)
     multi_xml (0.5.3)
     nokogiri (1.5.6)
-    nori (2.0.3)
+    nori (2.0.4)
     pkg-config (1.1.4)
     rack (1.5.2)
     savon (2.0.3)
@@ -59,3 +67,4 @@ DEPENDENCIES
   dream_cheeky!
   hipchat (~> 0.7.0)
   sonos!
+  yubikey!
