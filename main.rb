@@ -11,7 +11,12 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     def initialize
         @running = true
         system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
-        @sonos_group = system.groups.first
+        begin
+          @sonos_group = system.groups.first
+        rescue
+          puts "No sonos group found!"
+          @sonos_group = nil
+        end
     end
 
     def stop
@@ -46,12 +51,12 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     def run_block
         open do
             puts "Open"
-            @sonos_group.pause
+            @sonos_group.pause unless @sonos_group.nil?
         end
 
         close do
             puts "Close"
-            @sonos_group.play
+            @sonos_group.play unless @sonos_group.nil?
         end
 
         push do
