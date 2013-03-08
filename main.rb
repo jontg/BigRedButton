@@ -48,14 +48,14 @@ class RIQProductionPush < DreamCheeky::BigRedButton
 
         close do
             puts "Close"
-            @keyboard.close
+            @keyboard.close unless @keyboard.nil?
             @sonos_group.play unless @sonos_group.nil?
         end
 
         push do
             puts "Push"
             begin
-              otp = @keyboard.chomp
+              otp = @keyboard.gets.chomp
               token = Yubikey::OTP::Verify.new(otp)
               if token.valid?
                 puts "Test successful"
