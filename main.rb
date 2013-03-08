@@ -6,7 +6,7 @@ require 'sonos'
 require 'yubikey'
 
 class RIQProductionPush < DreamCheeky::BigRedButton
-    attr_accessor :running, :sonos_group
+    attr_accessor :running, :sonos_group, :keyboard
 
     def initialize
         @running = true
@@ -30,15 +30,6 @@ class RIQProductionPush < DreamCheeky::BigRedButton
             case check_button
             when OPEN
                 open! unless already_open?
-                begin
-                  otp = gets.chomp
-                  token = Yubikey::OTP::Verify.new(otp)
-                  if token.valid?
-                    puts "Test successful"
-                  end
-                rescue Yubikey::OTP::InvalidOTPError
-                  puts "invalid OTP"
-                end
             when DEPRESSED
                 push! unless already_pushed?
             when CLOSED
@@ -51,16 +42,27 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     def run_block
         open do
             puts "Open"
+            @keyboard = File.new("/dev/tty1", File::NONBLOCK | File::RDONLY)
             @sonos_group.pause unless @sonos_group.nil?
         end
 
         close do
             puts "Close"
+            @keyboard.close
             @sonos_group.play unless @sonos_group.nil?
         end
 
         push do
             puts "Push"
+            begin
+              otp = @keyboard.chomp
+              token = Yubikey::OTP::Verify.new(otp)
+              if token.valid?
+                puts "Test successful"
+              end
+            rescue Yubikey::OTP::InvalidOTPError
+              puts "invalid OTP"
+            end
         end
     end
 end
