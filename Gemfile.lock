@@ -7,14 +7,6 @@ GIT
       yubikey
 
 GIT
-  remote: git://github.com/gusaaaaa/dream_cheeky.git
-  revision: e4867f6233122b64397693f1b37245e077cdcc0b
-  branch: linux_support
-  specs:
-    dream_cheeky (0.2.0)
-      pkg-config
-
-GIT
   remote: git://github.com/jontg/sonos.git
   revision: 4bb7dc84c1bcd523e341335f04e2e04191eb6ccb
   branch: master
@@ -31,6 +23,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
     builder (3.2.0)
+    dream_cheeky (0.2.0)
     gyoku (1.0.0)
       builder (>= 2.1.2)
     hipchat (0.7.0)
@@ -45,7 +38,6 @@ GEM
     multi_xml (0.5.3)
     nokogiri (1.5.6)
     nori (2.0.4)
-    pkg-config (1.1.4)
     rack (1.5.2)
     savon (2.0.3)
       akami (~> 1.2.0)
@@ -64,7 +56,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dream_cheeky!
+  dream_cheeky (~> 0.2.0)
   hipchat (~> 0.7.0)
   sonos!
   yubikey!
