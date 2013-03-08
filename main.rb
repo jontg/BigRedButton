@@ -10,8 +10,8 @@ class RIQProductionPush < DreamCheeky::BigRedButton
 
     def initialize
         @running = true
-        system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
         begin
+          system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
           @sonos_group = system.groups.first
         rescue
           puts "No sonos group found!"
