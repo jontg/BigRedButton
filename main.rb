@@ -9,6 +9,7 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     attr_accessor :running, :sonos_group, :keyboard
 
     def initialize
+        puts "BRB.initialize"
         @running = true
         begin
           system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
