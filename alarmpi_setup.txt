@@ -1,0 +1,21 @@
+apt-get install avahi-daemon avahi-autoip git libi2c-dev curl libxml-xpath-perl
+echo "alarmpi" > /etc/hostname
+cat <<EOF > /etc/avahi/services/ssh.service
+<service-group>
+  <name replace-wildcards="yes">%h</name>
+  <service>
+    <type>_ssh._tcp</type>
+    <port>22</port>
+  </service>
+</service-group>
+EOF
+git clone git://git.drogon.net/wiringPi /opt/wiringPi
+pushd /opt/wiringPi
+ ./build 
+popd
+
+gpio readall
+gpio mode 1 out
+gpio write 1 0 # Siren ON
+sleep 10
+gpio write 1 1 # Siren OFF
