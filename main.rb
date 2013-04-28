@@ -4,13 +4,15 @@ require 'hipchat'
 require 'dream_cheeky'
 require 'sonos'
 require 'yubikey'
+require 'pi_piper'
 
 class RIQProductionPush < DreamCheeky::BigRedButton
-    attr_accessor :running, :sonos_group, :keyboard
+    attr_accessor :running, :sonos_group, :keyboard, :pin
 
     def initialize
         puts "BRB.initialize"
         @running = true
+        @pin = PiPiper::Pin.new(pin: 18, direction: :out)
         begin
           system = Sonos::System.new(Sonos::Discovery.new(1,"10.47.0.147").topology)
           @sonos_group = system.groups.first
@@ -22,6 +24,7 @@ class RIQProductionPush < DreamCheeky::BigRedButton
 
     def stop
         puts "BRB.stop"
+        @pin.off
         @running = false
     end
 
@@ -43,18 +46,21 @@ class RIQProductionPush < DreamCheeky::BigRedButton
     def run_block
         open do
             puts "Open"
+            @pin.on
             @keyboard = File.new("/dev/tty1", File::NONBLOCK | File::RDONLY)
             @sonos_group.pause unless @sonos_group.nil?
         end
 
         close do
             puts "Close"
+            @pin.off
             @keyboard.close unless @keyboard.nil?
             @sonos_group.play unless @sonos_group.nil?
         end
 
         push do
             puts "Push"
+            @pin.update_value(@pin.off?)
             begin
               otp = @keyboard.gets.chomp
               token = Yubikey::OTP::Verify.new(otp)
